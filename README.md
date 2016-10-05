@@ -4,37 +4,29 @@
 
 # rollup-plugin-pug
 
-[Rollup](https://github.com/rollup/rollup) plugin that transforms [pug](http://jade-lang.com/) templates in es6 modules.
+[Rollup](https://github.com/rollup/rollup) plugin that allows importing [pug](https://pugjs.org/) templates as HTML strings.
 
 ## Installation
 
 ```bash
-npm install --save-dev rollup-plugin-pug
+npm install --save-dev rollup-plugin-pug-html
 ```
 
 ## Usage
-
-Install the pug-runtime in the app:
-
-```bash
-npm install --save pug-runtime
-```
 
 Create the template:
 
 ```jade
 //- template.pug
-p= message
+p Hello #{ name }
 ```
 
 Import the template:
 
 ```js
-import template from './template.pug';
-
-const context = { message: 'Hello World' };
-
-console.log(template(context));  // <p>Hello World</p>
+// main.js
+import html from './template.pug';
+console.log(html);  // <p>Hello World</p>
 ```
 
 And build with something like...
@@ -53,7 +45,9 @@ rollup({
       // using `include` and `exclude`
       include: 'src/components/**.pug',
       // You can use native pug options as well.
-      pretty: true
+      pretty: true,
+      // You can also pass context for the Pug variables:
+      context: { name: 'World' },
     })
   ]
 }).then(...)
@@ -70,19 +64,20 @@ This plugin is using the following pug options as defaults:
   doctype: 'html',
   name: 'template',
   compileDebug: false,
-  inlineRuntimeFunctions: false
+  inlineRuntimeFunctions: false,
+  context: {},
 }
 ```
 
-See the full list and explanation in the [API Documentation](http://jade-lang.com/api/) of the pug site.
+See the full list and explanation in the [API Documentation](https://pugjs.org/) of the Pug site.
 
 ## Licence
 
 MIT
 
-[build-image]:    https://img.shields.io/travis/aMarCruz/rollup-plugin-pug.svg
-[build-url]:      https://travis-ci.org/aMarCruz/rollup-plugin-pug
-[npm-image]:      https://img.shields.io/npm/v/rollup-plugin-pug.svg
-[npm-url]:        https://www.npmjs.com/package/rollup-plugin-pug
+[build-image]:    https://img.shields.io/travis/tycho01/rollup-plugin-pug-html.svg
+[build-url]:      https://travis-ci.org/tycho01/rollup-plugin-pug-html
+[npm-image]:      https://img.shields.io/npm/v/rollup-plugin-pug-html.svg
+[npm-url]:        https://www.npmjs.com/package/rollup-plugin-pug-html
 [license-image]:  https://img.shields.io/npm/l/express.svg
-[license-url]:    https://github.com/aMarCruz/rollup-plugin-pug/blob/master/LICENSE
+[license-url]:    https://github.com/tycho01/rollup-plugin-pug-html/blob/master/LICENSE

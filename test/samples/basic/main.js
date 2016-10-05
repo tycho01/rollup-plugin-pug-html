@@ -1,5 +1,2 @@
 import template from './template.pug';
-
-var data = { name: 'World' };
-
-assert.equal(template(data), '<p>Hello World</p>');
+assert.equal(template, '<p>Hello World</p>');

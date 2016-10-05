@@ -1,5 +1,5 @@
 import { createFilter } from 'rollup-pluginutils';
-import { compileClient } from 'pug';
+import { compile } from 'pug';
 import { extname } from 'path';
 
 export default function pug (options) {
@@ -26,7 +26,8 @@ export default function pug (options) {
       doctype: 'html',
       name: 'template',
       compileDebug: false,
-      inlineRuntimeFunctions: false
+      inlineRuntimeFunctions: false,
+      context: {},
     };
     for (var p in opts) {
       if (opts.hasOwnProperty(p) && EXCL_PROPS.indexOf(p) === -1) {
@@ -46,11 +47,11 @@ export default function pug (options) {
     transform (code, id) {
       if (filter(id) && ~extensions.indexOf(extname(id).toLowerCase())) {
         opts.filename = id;
-        return 'import pug from "pug-runtime";\n' +
-          'export default ' + compileClient(code, opts);
+        let compiled = compile(code, opts)(opts.context);
+        return 'export default ' + JSON.stringify(compiled);
       }
       return null;
     },
-    name: 'rollup-plugin-pug'
+    name: 'rollup-plugin-pug-html'
   };
 }
