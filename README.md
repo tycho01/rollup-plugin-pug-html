@@ -2,7 +2,7 @@
 [![npm Version][npm-image]][npm-url]
 [![License][license-image]][license-url]
 
-# rollup-plugin-pug
+# rollup-plugin-pug-html
 
 [Rollup](https://github.com/rollup/rollup) plugin that allows importing [pug](https://pugjs.org/) templates as HTML strings.
 
@@ -33,7 +33,7 @@ And build with something like...
 
 ```js
 import { rollup } from 'rollup';
-import pug from 'rollup-plugin-pug';
+import pug from 'rollup-plugin-pug-html';
 
 rollup({
   entry: 'src/main.js',
